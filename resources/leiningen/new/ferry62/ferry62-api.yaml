@@ -1,0 +1,52 @@
+swagger: "2.0"
+
+info:
+  title: "{{ name }} API"
+  version: "1.0"
+
+basePath: /api
+
+paths:
+  /sample:
+    get:
+      summary: sample-fields
+      description: |
+        Returns the results of a sample SQL query runned against hive metastore
+      tags:
+        - sample
+      operationId: {{ name }}.api/sample-fields
+      produces:
+        - application/json
+      parameters:
+        - name: "name"
+          in: "query"
+          description: "name to be processed"
+          required: true
+          type: "string"
+        - name: "age"
+          in: "query"
+          description: "age"
+          required: true
+          type: integer
+        - name: "date"
+          in: query
+          description: "date"
+          required: true
+          type: date-time
+      responses:
+        200:
+          description: success
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "Muster"
+              age:
+                type: integer
+                example: 25
+              date:
+                type: date-time
+                example: "2018-01-01T11:11:11"
+        default:
+          description: error
