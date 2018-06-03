@@ -13,6 +13,7 @@
              ["project.clj"  (render "project.clj" data)]
              ["Dockerfile"  (render "Dockerfile" data)]
              ["README.md"  (render "README.md" data)]
+             [".gitignore"  (render ".gitignore")]
              ["dev/user.clj"  (render "user.clj" data)]
              ["src/{{sanitized}}/api.clj"  (render "api.clj" data)]
              ["src/{{sanitized}}/db.clj"  (render "db.clj" data)]

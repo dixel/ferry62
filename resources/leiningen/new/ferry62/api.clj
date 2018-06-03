@@ -18,16 +18,12 @@
   {:spec string?
    :default "127.0.0.1"})
 
-(def ^:dynamic sample-fields-query
-  db/sample-fields-query)
-
 (defn sample-fields
   "checking the connection and making hive return the echo payload"
   [request]
   (log/debugf "got request parameters: %s" (:query-params request))
-  (let [db-result
-        (sample-fields-query db/db
-                                (keywordize-keys (:query-params request)))]
+  (let [db-vec (db/sample-fields-query-sqlvec (keywordize-keys (:query-params request)))
+        db-result (db/query db-vec)]
     {:status 200
      :body db-result
      :headers {"Content-Type" "application/json"}}))

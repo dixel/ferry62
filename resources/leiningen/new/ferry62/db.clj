@@ -1,6 +1,7 @@
 (ns {{ name }}.db
   (:require [hugsql.core :as hugsql]
             [mount.core :as mount]
+            [clojure.core.cache :as cache]
             [clojure.java.jdbc :as jdbc]
             [ragtime.repl :as ragtime]
             [clojure.spec.alpha :as spec]
@@ -19,7 +20,17 @@
   {:spec string?
    :default ""})
 
-(hugsql/def-db-fns "queries/example.sql")
+(conf/def cache-size
+    {:spec integer?
+        :default 256})
+
+(defonce cache  (atom  (cache/lru-cache-factory  {} :threshold cache-size)))
+
+(defn reset-cache  []
+    (reset! cache  (cache/lru-cache-factory  {} :threshold cache-size)))
+
+
+(hugsql/def-sqlvec-fns "queries/example.sql")
 
 (mount/defstate db
   :start {:subprotocol "hive2"
@@ -28,3 +39,10 @@
           :user hive-user
           :password hive-password}
   :stop :pass)
+
+(defn query  [vec]
+  (cache/lookup (swap! cache
+                       #(if  (cache/has? % vec)
+                          (cache/hit % vec)
+                          (cache/miss % vec (jdbc/query db vec))))
+                vec))
