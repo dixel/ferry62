@@ -24,7 +24,7 @@
 (mount/defstate db
   :start {:subprotocol "hive2"
           :classname "org.apache.hive.jdbc.HiveDriver"
-          :subname db-uri
-          :user db-user
-          :password db-password}
+          :subname hive-uri
+          :user hive-user
+          :password hive-password}
   :stop :pass)
