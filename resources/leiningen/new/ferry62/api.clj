@@ -28,6 +28,14 @@
      :body db-result
      :headers {"Content-Type" "application/json"}}))
 
+(defn reset-cache
+  "reset the database cache"
+  [request]
+  (log/debugf "got request to flush the request cache...")
+  {:status 200
+   :body  (db/reset-cache)
+   :headers  {"Content-Type" "application/json"}})
+
 (mount/defstate api
   :start (do
            (log/info "starting the swagger-based API...")

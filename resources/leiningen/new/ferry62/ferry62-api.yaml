@@ -50,3 +50,20 @@ paths:
                 example: "2018-01-01T11:11:11"
         default:
           description: error
+  /cache/reset:
+    get:
+      summary: reset cache
+      description: |
+        reset the cache (for example if the new batch is finished)
+      tags:
+        - cache
+      operationId: relax.api/reset-cache
+      produces:
+        - application/json
+      responses:
+        200:
+          description: success
+          schema:
+            type: string
+        default:
+          description: error
