@@ -57,7 +57,7 @@ paths:
         reset the cache (for example if the new batch is finished)
       tags:
         - cache
-      operationId: relax.api/reset-cache
+      operationId: {{ name }}.api/reset-cache
       produces:
         - application/json
       responses:
