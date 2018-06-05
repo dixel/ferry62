@@ -3,8 +3,6 @@
             [mount.core :as mount]
             [clojure.core.cache :as cache]
             [clojure.java.jdbc :as jdbc]
-            [ragtime.repl :as ragtime]
-            [clojure.spec.alpha :as spec]
             [cyrus-config.core :as conf]))
 
 (conf/def hive-uri

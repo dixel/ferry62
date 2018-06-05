@@ -13,12 +13,8 @@
                                [org.apache.logging.log4j/log4j-slf4j-impl]
                                [log4j/log4j]]]
                  [mount "0.1.12"]
-                 [cyrus/config "0.2.1"]
-                 [sqlitejdbc "0.5.6"]
-                 [ragtime "0.7.2"]
                  [aleph "0.4.4"]
-                 [ring "1.6.3"]
-                 [ring/ring-jetty-adapter "1.6.3"]]
+                 [ring "1.6.3"]]
   :main {{ name }}.core
   :profiles {:dev
              {:source-paths ["dev"]
