@@ -8,7 +8,11 @@
                  [com.taoensso/timbre "4.10.0"]
                  [com.fzakaria/slf4j-timbre "0.3.8"]
                  [org.clojure/core.cache "0.7.1"]
-                 [org.apache.hive/hive-jdbc "2.3.3"
+                 [org.apache.hive/hive-jdbc "1.2.2"
+                  :exclusions [[org.slf4j/slf4j-log4j12]
+                               [org.apache.logging.log4j/log4j-slf4j-impl]
+                               [log4j/log4j]]]
+                 [org.apache.hadoop/hadoop-common "2.7.3"
                   :exclusions [[org.slf4j/slf4j-log4j12]
                                [org.apache.logging.log4j/log4j-slf4j-impl]
                                [log4j/log4j]]]

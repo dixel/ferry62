@@ -1,4 +1,4 @@
-(defproject ferry62/lein-template "0.0.2"
+(defproject ferry62/lein-template "0.0.3"
   :description "shipping the data from Hive via REST-API with swagger API and SQL"
   :url "https://github.com/dixel/ferry62"
   :license {:name "Eclipse Public License"
