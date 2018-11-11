@@ -11,10 +11,10 @@ paths:
     get:
       summary: sample-fields
       description: |
-        Returns the results of a sample SQL query runned against hive metastore
+        Returns the results of a sample SQL query runned against the database
       tags:
         - sample
-      operationId: {{ name }}.api/sample-fields
+      operationId: {{ name }}.handlers/sample-fields
       produces:
         - application/json
       parameters:
@@ -57,7 +57,7 @@ paths:
         reset the cache (for example if the new batch is finished)
       tags:
         - cache
-      operationId: {{ name }}.api/reset-cache
+      operationId: {{ name }}.handlers/reset-cache
       produces:
         - application/json
       responses:

@@ -1,14 +1,20 @@
 (ns {{ name }}.api
-  (:require [ring.util.response :as r]
+  (:require [{{ name }}.handlers :as handlers]
+            [ring.util.response :as r]
+            {{#plain}}
+            [ring.middleware.json :refer [wrap-json-response]]
+            [ring.middleware.params :refer  [wrap-params]]
+            {{/plain}}
             [aleph.http :as http]
             [mount.core :as mount]
+            {{#swagger1st}}
             [io.sarnowski.swagger1st.core :as s1st]
+            {{/swagger1st}}
             [{{ name }}.db :as db]
             [cheshire.core :as json]
             [aleph.http :as http]
             [cyrus-config.core :as conf]
-            [taoensso.timbre :as log]
-            [clojure.walk :refer [keywordize-keys]]))
+            [taoensso.timbre :as log]))
 
 (conf/def http-port "http port of the app"
   {:spec integer?
@@ -18,32 +24,32 @@
   {:spec string?
    :default "127.0.0.1"})
 
-(defn sample-fields
-  "checking the connection and making hive return the echo payload"
-  [request]
-  (log/debugf "got request parameters: %s" (:query-params request))
-  (let [db-vec (db/sample-fields-query-sqlvec (keywordize-keys (:query-params request)))
-        db-result (db/query db-vec)]
-    {:status 200
-     :body db-result
-     :headers {"Content-Type" "application/json"}}))
+{{#plain}}
+(defn app  [request]
+    (log/debugf "request: %s"  (:uri request))
+    (case  (:uri request)
+          "/cache/reset"  (handlers/reset-cache request)
+          "/sample"  (handlers/sample-fields request)))
+{{/plain}}
 
-(defn reset-cache
-  "reset the database cache"
-  [request]
-  (log/debugf "got request to flush the request cache...")
-  {:status 200
-   :body  (db/reset-cache)
-   :headers  {"Content-Type" "application/json"}})
+{{#swagger1st}}
+(def app
+  (s1st/context :yaml-cp "{{ name }}-api.yaml")
+  (s1st/discoverer)
+  (s1st/mapper)
+  (s1st/parser)
+  (s1st/executor))
+{{/swagger1st}}
 
 (mount/defstate api
   :start (do
-           (log/info "starting the swagger-based API...")
-           (http/start-server (-> (s1st/context :yaml-cp "{{ name }}-api.yaml")
-                                  (s1st/discoverer)
-                                  (s1st/mapper)
-                                  (s1st/parser)
-                                  (s1st/executor))
+           (log/info "starting the API component...")
+           (http/start-server (-> app
+                                {{#plain}}
+                                  wrap-json-response
+                                  wrap-params
+                                {{/plain}}
+                                )
                               {:port http-port
                                :host http-host}))
   :stop (.close api))
