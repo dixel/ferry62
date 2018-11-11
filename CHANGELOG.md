@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.0.4]
 ### Added
 - Ability to choose between plain ring (default) and swagger1st.
 
