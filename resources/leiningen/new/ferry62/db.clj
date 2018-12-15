@@ -28,7 +28,7 @@
 
 (conf/def cache-size
     {:spec integer?
-        :default 256})
+     :default 256})
 
 (defonce cache  (atom  (cache/lru-cache-factory  {} :threshold cache-size)))
 
@@ -62,6 +62,7 @@
 
 (conf/def pgsql-password
   {:spec    string?
+   :secret  true
    :default "postgres"})
 
 (def pgconfig
