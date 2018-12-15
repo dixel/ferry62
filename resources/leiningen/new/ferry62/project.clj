@@ -22,6 +22,9 @@
                                [org.apache.logging.log4j/log4j-slf4j-impl]
                                [log4j/log4j]]]
                  {{/hive}}
+                 {{#nrepl}}
+                 [nrepl "0.4.0"]
+                 {{/nrepl}}
                  {{#postgres}}
                  [org.postgresql/postgresql "42.2.5"]
                  [ragtime "0.7.2"]

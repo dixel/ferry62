@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.5]
+## [0.0.6]
 ### Added
 - Leiningen 2.8.3 support
 - Choose between postgres/hive with +postgres/+hive options
