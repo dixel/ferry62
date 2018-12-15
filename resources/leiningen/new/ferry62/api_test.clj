@@ -2,8 +2,12 @@
   (:require [{{ name }}.api :as sut]
             [clojure.test :refer :all]
 			[clojure.core.cache :as cache]
-            [{{ name }}.db :as db]))
+{{#db}}
+            [{{ name }}.db :as db]
+{{/db}}
+            ))
 
+{{#db}}
 (deftest sample-fields-test
   (swap! db/cache
          #(cache/miss
@@ -18,3 +22,4 @@
          (sut/sample-fields {:query-params {:name "test"
                                             :age "123"
                                             :date "123"}}))))
+{{/db}}

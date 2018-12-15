@@ -2,6 +2,9 @@
   (:gen-class)
   (:require [mount.core :as mount]
             [{{ name }}.api :refer [api]]
+{{#nrepl}}
+            [{{ name }}.repl :refer [repl]]
+{{/nrepl}}
             [taoensso.timbre :as log]
             [cyrus-config.core :as conf]
             [clojure.string :as str]))

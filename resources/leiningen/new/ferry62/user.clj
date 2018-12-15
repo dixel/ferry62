@@ -10,6 +10,9 @@
 {{#db}}
 (require '[{{ name }}.db :as db])
 {{/db}}
+{{#nrepl}}
+(require '[{{ name }}.repl :as repl])
+{{/nrepl}}
 
 (conf/reload-with-override! (read-string (slurp ".config.edn")))
 
@@ -18,6 +21,9 @@
 {{#db}}
   (mount/start [#'db/db])
 {{/db}}
+{{#nrepl}}
+  (mount/start [#'repl/repl])
+{{/nrepl}}
   )
 
 (defn stop []

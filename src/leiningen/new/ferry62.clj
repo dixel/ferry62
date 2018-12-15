@@ -13,6 +13,7 @@
               :hive (argset :+hive)
               :postgres (when (not (argset :+hive)) (argset :+postgres))
               :db (or (argset :+postgres) (argset :+hive))
+              :nrepl (argset :+nrepl)
               :sanitized (name-to-path name)}]
     (main/info (format "rendering new ferry62 project : [%s]" name))
     (apply (partial ->files data)
@@ -28,8 +29,11 @@
                       ["src/{{sanitized}}/db.clj" (render "db.clj" data)])
                     ["src/{{sanitized}}/handlers.clj" (render "handlers.clj" data)]
                     ["src/{{sanitized}}/core.clj" (render "core.clj" data)]
+                    (when (:nrepl data)
+                      ["src/{{sanitized}}/repl.clj" (render "repl.clj" data)])
                     ["test/{{sanitized}}/api_test.clj" (render "api_test.clj" data)]
-                    ["resources/queries/example.sql" (render "example.sql" data)]
+                    (when (:db data)
+                      ["resources/queries/example.sql" (render "example.sql" data)])
                     (when (:postgres data)
                       ["docker-compose.yaml" (render "docker-compose.yaml")])
                     (when (:postgres data)
