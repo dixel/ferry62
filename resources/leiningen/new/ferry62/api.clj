@@ -1,16 +1,18 @@
 (ns {{ name }}.api
   (:require [{{ name }}.handlers :as handlers]
             [ring.util.response :as r]
-            {{#plain}}
+{{#plain}}
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.params :refer  [wrap-params]]
-            {{/plain}}
+{{/plain}}
             [aleph.http :as http]
             [mount.core :as mount]
-            {{#swagger1st}}
+{{#swagger1st}}
             [io.sarnowski.swagger1st.core :as s1st]
-            {{/swagger1st}}
+{{/swagger1st}}
+{{#db}}
             [{{ name }}.db :as db]
+{{/db}}
             [cheshire.core :as json]
             [aleph.http :as http]
             [cyrus-config.core :as conf]
@@ -28,8 +30,13 @@
 (defn app  [request]
     (log/debugf "request: %s"  (:uri request))
     (case  (:uri request)
+{{#hive}}
           "/cache/reset"  (handlers/reset-cache request)
-          "/sample"  (handlers/sample-fields request)))
+{{/hive}}
+{{#db}}
+          "/sample"  (handlers/sample-fields request)
+{{/db}}
+          "/ping" (handlers/pong request)))
 {{/plain}}
 
 {{#swagger1st}}

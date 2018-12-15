@@ -12,6 +12,7 @@
                  [com.fzakaria/slf4j-timbre "0.3.8"]
                  [org.clojure/core.cache "0.7.1"]
                  [cheshire "5.8.1"]
+                 {{#hive}}
                  [org.apache.hive/hive-jdbc "1.2.2"
                   :exclusions [[org.slf4j/slf4j-log4j12]
                                [org.apache.logging.log4j/log4j-slf4j-impl]
@@ -20,6 +21,11 @@
                   :exclusions [[org.slf4j/slf4j-log4j12]
                                [org.apache.logging.log4j/log4j-slf4j-impl]
                                [log4j/log4j]]]
+                 {{/hive}}
+                 {{#postgres}}
+                 [org.postgresql/postgresql "42.2.5"]
+                 [ragtime "0.7.2"]
+                 {{/postgres}}
                  [mount "0.1.12"]
                  [aleph "0.4.4"]
                  [ring "1.6.3"]
@@ -30,6 +36,5 @@
               :repl-options {:init-ns user}
               :plugins
               [[lein-ancient "0.6.15"]
-               [venantius/ultra "0.5.2"]
                [lein-kibit "0.1.5"]
                [jonase/eastwood "0.2.5"]]}})

@@ -14,40 +14,51 @@
 ```
 
 ## Goal
-Painless REST-API for a Hive storage.
-Reduce the time to write boilerplate code on similar projects
+Easy-peasy data-driven CRUD application development.
+Painless REST-API for a different storage systems.
 
 ## Usage
 
-```
-lein new ferry62 <NAME OF THE PROJECT>
-```
-
-OR
+### storage = postgresql
 
 ```
-lein new ferry62 +swagger1st
+lein new ferry62 <NAME OF THE PROJECT> +postgres
 ```
-in order to be able to manipulate the routing of the web application directly from the swagger definition.
-This will also render `/ui` endpoint to enable the interactive UI documentation.
 
-To start the application on the local environment, first you need to have some hive database ([this one](https://github.com/big-data-europe/docker-hive)
-works pretty well for testing use-cases.
+### storage = hive
 
-After that simply execute `lein run` inside of the projects to test your new application.
+```
+lein new ferry62 <NAME OF THE PROJECT> +hive
+```
 
+### swagger1st support
+*render HTTP routes purely based on swagger yaml definition*
+
+```
+lein new ferry62 <NAME OF THE PROJECT> +postgres +swagger1st
+```
+
+This will render `/ui` endpoint to enable the interactive UI documentation.
+
+### sample
+
+To start the application on the local environment, first you need to have some hive or postgres database 
+In case of Hive database ([this one](https://github.com/big-data-europe/docker-hive) works pretty well for testing use-cases.
+For Postgresql a docker-compose file which one can run via `docker-compose up -d` is available.
+
+```bash
+lein new ferry62 locomo +postgres
+cd locomo
+docker-compose up -d # will start postgres docker container on localhost:5432
+lein repl
+(start)
+```
 
 ## Components
 
-- Swagger definition (will be in `resources/{{ name }}.yaml` of your project)
 - [Hugsql](https://github.com/layerware/hugsql) templates (your SQL queries) - <./resources/queries/example.sql>
-- Configuration is done via environment:
-    - `HIVE_URI`
-    - `HIVE_USER`
-    - `HIVE_PASSWORD`
-    - `HTTP_HOST`
-    - `HTTP_PORT`
-    - `LOG_LEVEL`
+- Configuration is done via environment variables and [cyrus-config](https://github.com/dryewo/cyrus-config) library and .config.edn file during the development
+- Swagger definition (will be in `resources/{{ name }}.yaml` of your project)
 
 ## License
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5]
+### Added
+- Leiningen 2.8.3 support
+- Choose between postgres/hive with +postgres/+hive options
+
+### Removed
+- Ultra plugin (leiningen compatibility)
+
 ## [0.0.4]
 ### Added
 - Ability to choose between plain ring (default) and swagger1st.
