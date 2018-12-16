@@ -23,7 +23,7 @@
                                [log4j/log4j]]]
                  {{/hive}}
                  {{#nrepl}}
-                 [nrepl "0.4.0"]
+                 [nrepl/nrepl "0.5.3"]
                  {{/nrepl}}
                  {{#postgres}}
                  [org.postgresql/postgresql "42.2.5"]
