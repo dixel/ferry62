@@ -34,6 +34,7 @@
                  [ring "1.6.3"]
                  [ring/ring-json "0.4.0"]]
   :main {{ name }}.core
+  :uberjar-name "{{ name }}.jar"
   :profiles {:dev
              {:source-paths ["dev"]
               :repl-options {:init-ns user}
