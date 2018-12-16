@@ -89,6 +89,8 @@
 
 (defn query [vec]
   (jdbc/query db vec))
+
+(hugsql/def-db-fns "queries/example.sql")
 {{/postgres}}
 
 (hugsql/def-sqlvec-fns "queries/example.sql")

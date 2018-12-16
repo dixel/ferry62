@@ -15,7 +15,6 @@
 
 ## Goal
 Easy-peasy data-driven CRUD application development.
-Painless REST-API for a different storage systems.
 
 ## Usage
 
