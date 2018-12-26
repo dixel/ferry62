@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.0.12]
+- Support multiple databases in one project (for example for migration scripts)
+
 ## [0.0.11]
 ### Added
 - Leiningen 2.8.3 support
