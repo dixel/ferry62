@@ -12,7 +12,10 @@
               :plain (not (argset :+swagger1st))
               :hive (argset :+hive)
               :postgres (argset :+postgres)
-              :db (or (argset :+postgres) (argset :+hive))
+              :presto (argset :+presto)
+              :db (or (argset :+postgres)
+                      (argset :+hive)
+                      (argset :+presto))
               :nrepl (argset :+nrepl)
               :sanitized (name-to-path name)}]
     (main/info (format "rendering new ferry62 project : [%s]" name))
@@ -29,6 +32,8 @@
                       ["src/{{sanitized}}/hive.clj" (render "hive.clj" data)])
                     (when (:postgres data)
                       ["src/{{sanitized}}/postgres.clj" (render "postgres.clj" data)])
+                    (when (:presto data)
+                      ["src/{{sanitized}}/presto.clj" (render "presto.clj" data)])
                     ["src/{{sanitized}}/handlers.clj" (render "handlers.clj" data)]
                     ["src/{{sanitized}}/core.clj" (render "core.clj" data)]
                     (when (:nrepl data)

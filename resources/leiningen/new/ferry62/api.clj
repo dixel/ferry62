@@ -14,6 +14,10 @@
 
             [{{ name }}.postgres :as postgres]
 {{/postgres}}
+{{#presto}}
+
+            [{{ name }}.presto :as presto]
+{{/presto}}
 {{#hive}}
 
             [{{ name }}.hive :as hive]

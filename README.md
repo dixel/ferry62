@@ -39,6 +39,13 @@ lein new ferry62 <NAME OF THE PROJECT> +postgres +swagger1st
 
 This will render `/ui` endpoint to enable the interactive UI documentation.
 
+### all together
+*for whatever reason you may need all the databases*
+
+```bash
+lein new ferry62 <NAME> +postgresql +hive +presto
+```
+
 ### sample
 
 To start the application on the local environment, first you need to have some hive or postgres database 

@@ -13,6 +13,9 @@
 {{#postgres}}
 (require '[{{ name }}.postgres :as postgres])
 {{/postgres}}
+{{#presto}}
+(require '[{{ name }}.presto :as presto])
+{{/presto}}
 {{#nrepl}}
 (require '[{{ name }}.repl :as repl])
 {{/nrepl}}

@@ -22,6 +22,12 @@
                                [org.apache.logging.log4j/log4j-slf4j-impl]
                                [log4j/log4j]]]
                  {{/hive}}
+                 {{#presto}}
+                 [com.facebook.presto/presto-jdbc "0.215"
+                  :exclusions  [[org.slf4j/slf4j-log4j12]
+                                [org.apache.logging.log4j/log4j-slf4j-impl]
+                                [log4j/log4j]]]
+                 {{/presto}}
                  {{#nrepl}}
                  [nrepl/nrepl "0.5.3"]
                  {{/nrepl}}

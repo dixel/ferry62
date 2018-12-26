@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.0.13]
+- Add support for PrestoDB (old versions). Lack of prepared statements there had to be compensated not very cleanly
+
 ## [0.0.12]
 - Support multiple databases in one project (for example for migration scripts)
 
