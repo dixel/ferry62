@@ -7,9 +7,12 @@
                     :ns-whitelist ["{{ name }}.*"]})
 
 (require '[{{ name }}.api :as api])
-{{#db}}
-(require '[{{ name }}.db :as db])
-{{/db}}
+{{#hive}}
+(require '[{{ name }}.hive :as hive])
+{{/hive}}
+{{#postgres}}
+(require '[{{ name }}.postgres :as postgres])
+{{/postgres}}
 {{#nrepl}}
 (require '[{{ name }}.repl :as repl])
 {{/nrepl}}
@@ -17,14 +20,7 @@
 (conf/reload-with-override! (read-string (slurp ".config.edn")))
 
 (defn start []
-  (mount/start [#'api/api])
-{{#db}}
-  (mount/start [#'db/db])
-{{/db}}
-{{#nrepl}}
-  (mount/start [#'repl/repl])
-{{/nrepl}}
-  )
+  (mount/start))
 
 (defn stop []
   (mount/stop))

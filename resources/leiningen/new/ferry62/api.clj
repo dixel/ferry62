@@ -10,9 +10,14 @@
 {{#swagger1st}}
             [io.sarnowski.swagger1st.core :as s1st]
 {{/swagger1st}}
-{{#db}}
-            [{{ name }}.db :as db]
-{{/db}}
+{{#postgres}}
+
+            [{{ name }}.postgres :as postgres]
+{{/postgres}}
+{{#hive}}
+
+            [{{ name }}.hive :as hive]
+{{/hive}}
             [cheshire.core :as json]
             [aleph.http :as http]
             [cyrus-config.core :as conf]

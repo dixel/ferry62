@@ -2,14 +2,14 @@
   (:require [{{ name }}.api :as sut]
             [clojure.test :refer :all]
 			[clojure.core.cache :as cache]
-{{#db}}
-            [{{ name }}.db :as db]
-{{/db}}
+{{#hive}}
+            [{{ name }}.hive :as hive]
+{{/hive}}
             ))
 
-{{#db}}
+{{#hive}}
 (deftest sample-fields-test
-  (swap! db/cache
+  (swap! hive/cache
          #(cache/miss
            %
            ["SELECT\n  ?   AS name\n  ,?   AS age\n  ,?  AS datem" "test" "123" "123"]
@@ -22,4 +22,4 @@
          (sut/sample-fields {:query-params {:name "test"
                                             :age "123"
                                             :date "123"}}))))
-{{/db}}
+{{/hive}}

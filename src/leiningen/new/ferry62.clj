@@ -11,7 +11,7 @@
               :swagger1st (argset :+swagger1st)
               :plain (not (argset :+swagger1st))
               :hive (argset :+hive)
-              :postgres (when (not (argset :+hive)) (argset :+postgres))
+              :postgres (argset :+postgres)
               :db (or (argset :+postgres) (argset :+hive))
               :nrepl (argset :+nrepl)
               :sanitized (name-to-path name)}]
@@ -25,8 +25,10 @@
                     [".config.edn" (render "config.edn")]
                     ["dev/user.clj" (render "user.clj" data)]
                     ["src/{{sanitized}}/api.clj" (render "api.clj" data)]
-                    (when (:db data)
-                      ["src/{{sanitized}}/db.clj" (render "db.clj" data)])
+                    (when (:hive data)
+                      ["src/{{sanitized}}/hive.clj" (render "hive.clj" data)])
+                    (when (:postgres data)
+                      ["src/{{sanitized}}/postgres.clj" (render "postgres.clj" data)])
                     ["src/{{sanitized}}/handlers.clj" (render "handlers.clj" data)]
                     ["src/{{sanitized}}/core.clj" (render "core.clj" data)]
                     (when (:nrepl data)
