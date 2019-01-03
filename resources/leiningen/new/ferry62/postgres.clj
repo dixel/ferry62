@@ -44,4 +44,7 @@
            pgconfig)
   :stop :pass)
 
+(defn query [vec]
+  (jdbc/query postgres vec))
+
 (hugsql/def-db-fns "queries/example.sql")

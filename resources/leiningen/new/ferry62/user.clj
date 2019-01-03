@@ -9,12 +9,18 @@
 (require '[{{ name }}.api :as api])
 {{#hive}}
 (require '[{{ name }}.hive :as hive])
+(defn hive-query [query]
+  ({{ name }}.hive/query [query]))
 {{/hive}}
 {{#postgres}}
 (require '[{{ name }}.postgres :as postgres])
+(defn postgres-query [query]
+  ({{ name }}.postgres/query [query]))
 {{/postgres}}
 {{#presto}}
 (require '[{{ name }}.presto :as presto])
+(defn presto-query [query]
+  ({{ name }}.presto/query [query]))
 {{/presto}}
 {{#nrepl}}
 (require '[{{ name }}.repl :as repl])
