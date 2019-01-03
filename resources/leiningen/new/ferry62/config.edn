@@ -1,3 +1,17 @@
-{"HIVE_USER" ""
+{
  "HIVE_URI" "//localhost:10000"
- "HIVE_PASSWORD" ""}
+ "HIVE_USER" "root"
+ "HIVE_PASSWORD" ""
+ "HIVE_CACHE_SIZE" 256
+ "PGSQL_URI" "//localhost:5432/foobar"
+ "PGSQL_USER" "postgres"
+ "PGSQL_PASSWORD" "postgres"
+ "PRESTO_URI" "//localhost:8080"
+ "PRESTO_USER" "root"
+ "PRESTO_PASSWORD" ""
+ "PRESTO_CACHE_SIZE" 256
+ "HTTP_PORT" 4040
+ "HTTP_HOST" "127.0.0.1"
+ "NREPL_PORT" 7878
+ "NREPL_BIND" "127.0.0.1"
+ }

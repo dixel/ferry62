@@ -38,10 +38,9 @@
   :stop :pass)
 
 (defn- prepare-params [params]
-  (log/info params)
   (for [i params]
     (condp = (type i)
-      java.lang.String (str "'" (str/replace i "'" "''" "'"))
+      java.lang.String (str "'" (str/replace i "'" "''") "'")
       (str i))))
 
 (defn- fake-prepare-statement [sqlvec]
@@ -51,9 +50,11 @@
 
 (defn- presto-query [sqlvec]
   (let [conn (jdbc/get-connection presto)
-        statement (.createStatement conn)]
+        statement (.createStatement conn)
+        query (fake-prepare-statement sqlvec)]
+    (log/debug "presto query: " query)
     (jdbc/metadata-result
-     (.executeQuery statement (fake-prepare-statement sqlvec)))))
+     (.executeQuery statement query))))
 
 (defn query-cached [sqlvec]
   (cache/lookup (swap! cache
