@@ -20,14 +20,14 @@
    :secret true
    :default ""})
 
-(conf/def cache-size
+(conf/def hive-cache-size
     {:spec integer?
      :default 256})
 
-(defonce cache  (atom  (cache/lru-cache-factory  {} :threshold cache-size)))
+(defonce cache  (atom  (cache/lru-cache-factory  {} :threshold hive-cache-size)))
 
 (defn reset-cache  []
-    (reset! cache  (cache/lru-cache-factory  {} :threshold cache-size)))
+    (reset! cache  (cache/lru-cache-factory  {} :threshold hive-cache-size)))
 
 (mount/defstate hive
   :start {:subprotocol "hive2"
