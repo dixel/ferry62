@@ -1,4 +1,4 @@
-(defproject ferry62/lein-template "0.0.13-SNAPSHOT"
+(defproject ferry62/lein-template "0.0.14-SNAPSHOT"
   :description "shipping the data from JDBC storage via REST-API with API spec"
   :url "https://github.com/dixel/ferry62"
   :license {:name "Eclipse Public License"
