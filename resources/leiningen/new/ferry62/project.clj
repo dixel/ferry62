@@ -1,5 +1,5 @@
 (defproject {{ name }} "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.9.0"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
                  [compojure "1.6.1"]
                  {{#swagger1st}}
                  [org.zalando/swagger1st "0.25.0"]
@@ -36,7 +36,7 @@
                  [ragtime "0.7.2"]
                  {{/postgres}}
                  [mount "0.1.12"]
-                 [aleph "0.4.4"]
+                 [aleph "0.4.6"]
                  [ring "1.6.3"]
                  [ring/ring-json "0.4.0"]]
   :main {{ name }}.core
