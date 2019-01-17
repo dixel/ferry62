@@ -35,9 +35,12 @@
      :headers {"Content-Type" "application/json"}}))
 
 (defn reset-cache
-  "reset the database cache"
+  "reset hive cache"
+{{#presto}}
+  ;; this function will be overriden by presto reset-cache
+{{/presto}}
   [request]
-  (log/debugf "got request to flush the request cache...")
+  (log/debugf "got request to flush hive cache...")
   {:status 200
    :body  (hive/reset-cache)
    :headers  {"Content-Type" "application/json"}})
@@ -52,10 +55,18 @@
   [request]
   (log/debugf "got request parameters: %s" (:query-params request))
   (let [db-vec (presto/sample-fields-query-sqlvec (keywordize-keys (:query-params request)))
-        db-result (presto/query db-vec)]
+        db-result (presto/query-cached db-vec)]
     {:status 200
      :body db-result
      :headers {"Content-Type" "application/json"}}))
+
+(defn reset-cache
+  "reset presto cache"
+  [request]
+  (log/debugf "got request to flush presto cache...")
+  {:status 200
+   :body  (presto/reset-cache)
+   :headers  {"Content-Type" "application/json"}})
 {{/presto}}
 
 {{#postgres}}

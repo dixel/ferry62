@@ -1,5 +1,8 @@
 (ns leiningen.new.ferry62
-  (:require [leiningen.new.templates :refer [renderer name-to-path ->files]]
+  (:require [leiningen.new.templates :refer [renderer
+                                             name-to-path
+                                             project-name
+                                             ->files]]
             [leiningen.core.main :as main]))
 
 (def render (renderer "ferry62"))
@@ -16,8 +19,12 @@
               :db (or (argset :+postgres)
                       (argset :+hive)
                       (argset :+presto))
+              :cached-db (or (argset :+hive)
+                             (argset :+presto))
               :nrepl (argset :+nrepl)
-              :sanitized (name-to-path name)}]
+              :sanitized (name-to-path name)
+              :project (project-name (name-to-path name))
+              }]
     (main/info (format "rendering new ferry62 project : [%s]" name))
     (apply (partial ->files data)
            (filter some?
@@ -25,7 +32,7 @@
                     ["Dockerfile" (render "Dockerfile" data)]
                     ["README.md" (render "README.md" data)]
                     [".gitignore" (render "gitignore")]
-                    [".config.edn" (render "config.edn")]
+                    [".config.edn" (render "config.edn" data)]
                     ["dev/user.clj" (render "user.clj" data)]
                     ["src/{{sanitized}}/api.clj" (render "api.clj" data)]
                     (when (:hive data)
@@ -46,4 +53,4 @@
                     (when (:postgres data)
                       ["resources/migrations/001-example.up.sql" (render "001-example.up.sql" data)])
                     (when (:swagger1st data)
-                      ["resources/{{sanitized}}-api.yaml" (render "swagger1st/ferry62-api.yaml" data)])]))))
+                      ["resources/{{ project }}-api.yaml" (render "swagger1st/ferry62-api.yaml" data)])]))))

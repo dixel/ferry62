@@ -24,6 +24,10 @@
     {:spec integer?
      :default 256})
 
+(conf/def presto-ssl
+  {:spec boolean?
+   :default false})
+
 (defonce cache  (atom  (cache/lru-cache-factory  {} :threshold presto-cache-size)))
 
 (defn reset-cache  []
@@ -33,6 +37,7 @@
   :start {:subprotocol "presto"
           :classname "com.facebook.presto.jdbc.PrestoDriver"
           :subname presto-uri
+          "SSL" presto-ssl
           :user presto-user
           :password presto-password}
   :stop :pass)

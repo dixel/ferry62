@@ -50,7 +50,7 @@
 
 {{#swagger1st}}
 (def app
-  (-> (s1st/context :yaml-cp "{{ name }}-api.yaml")
+  (-> (s1st/context :yaml-cp "{{ project }}-api.yaml")
       (s1st/discoverer)
       (s1st/mapper)
       (s1st/parser)
