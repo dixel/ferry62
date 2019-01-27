@@ -4,6 +4,9 @@
                  {{#swagger1st}}
                  [org.zalando/swagger1st "0.25.0"]
                  {{/swagger1st}}
+                 {{#reitit}}
+                 [metosin/reitit "0.2.13"]
+                 {{/reitit}}
                  [cyrus/config "0.2.1"]
                  [mount "0.1.12"]
                  [com.layerware/hugsql "0.4.8"]
@@ -35,7 +38,6 @@
                  [org.postgresql/postgresql "42.2.5"]
                  [ragtime "0.7.2"]
                  {{/postgres}}
-                 [mount "0.1.12"]
                  [aleph "0.4.6"]
                  [ring "1.6.3"]
                  [ring/ring-json "0.4.0"]]
