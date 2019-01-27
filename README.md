@@ -20,6 +20,17 @@ Easy-peasy data-driven CRUD application development.
 lein new ferry62 beeeep +postgres +hive +presto
 ```
 
+## Available parameters
+
+- `+postgres`
+- `+hive`
+- `+presto`
+- `+reitit` - use [reitit](https://github.com/metosin/reitit) data-driven API with swagger support and parameter coercion
+- `+swagger1st` - simpler swagger support, you also first write `yaml` specification with 0 clojure code, but old version of swagger-ui.
+- `+nrepl` - enable nrepl for the ability to connect to a running application
+
+If neither of `+reitit` or `+swagger1st` is specified, a simple ring routing is used for handling the requests.
+
 ## Usage
 
 In this example we'll use all 3 available data sources:
