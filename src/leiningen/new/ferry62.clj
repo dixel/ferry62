@@ -13,7 +13,8 @@
         data {:name name
               :swagger1st (argset :+swagger1st)
               :reitit (argset :+reitit)
-              :plain (not (argset :+swagger1st))
+              :plain (not (or (argset :+swagger1st)
+                              (argset :+reitit)))
               :hive (argset :+hive)
               :postgres (argset :+postgres)
               :presto (argset :+presto)

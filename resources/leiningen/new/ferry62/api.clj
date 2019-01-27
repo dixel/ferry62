@@ -2,9 +2,12 @@
   (:require [{{ name }}.handlers :as handlers]
             [ring.util.response :as r]
 {{#plain}}
-            [ring.middleware.json :refer [wrap-json-response]]
+            [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
             [ring.middleware.params :refer  [wrap-params]]
 {{/plain}}
+{{#reitit}}
+            [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
+{{/reitit}}
             [aleph.http :as http]
             [mount.core :as mount]
 {{#swagger1st}}
@@ -67,9 +70,11 @@
                                 :description ""}}
                :handler (swagger/create-swagger-handler)}}]
        ["/sample" {:get {:parameters {:query {:name string?, :age int?, :date string?}}
+                         :swagger {:tags ["sample"]}
                          :responses {200 {:body [{:name string?, :age string?, :datem string?}]}}
                          :handler handlers/sample-fields}}]
-       ["/ping" {:get {:responses {200 {:body {:result "pong"}}}
+       ["/ping" {:get {:responses {200 {:body {:result keyword?}}}
+                       :swagger {:tags ["ping"]}
                        :handler handlers/pong}}]]
       {:data {:coercion reitit.coercion.spec/coercion
               :muuntaja m/instance
@@ -101,9 +106,14 @@
            (log/info "starting the API component...")
            (http/start-server (-> app
                                 {{#plain}}
+                                  wrap-json-body
                                   wrap-json-response
                                   wrap-params
                                 {{/plain}}
+                                {{#reitit}}
+                                  wrap-json-body
+                                  wrap-json-response
+                                {{/reitit}}
                                 )
                               {:port http-port
                                :host http-host}))
