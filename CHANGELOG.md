@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+- Add support for data-driven APIs with [retit](https://github.com/metosin/reitit)
+- Remove redundant dependencies
+
 ## [0.0.13]
 - Add support for PrestoDB (old versions). Lack of prepared statements there had to be compensated not very cleanly
 

@@ -10,16 +10,24 @@
 {{#swagger1st}}
             [io.sarnowski.swagger1st.core :as s1st]
 {{/swagger1st}}
+{{#reitit}}
+            [reitit.ring :as reitit]
+            [reitit.coercion.spec]
+            [reitit.ring.coercion :as coercion]
+            [reitit.swagger :as swagger]
+            [reitit.swagger-ui :as swagger-ui]
+            [reitit.ring.middleware.exception :as exception]
+            [reitit.ring.middleware.parameters :as parameters]
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [muuntaja.core :as m]
+{{/reitit}}
 {{#postgres}}
-
             [{{ name }}.postgres :as postgres]
 {{/postgres}}
 {{#presto}}
-
             [{{ name }}.presto :as presto]
 {{/presto}}
 {{#hive}}
-
             [{{ name }}.hive :as hive]
 {{/hive}}
             [cheshire.core :as json]
@@ -45,8 +53,39 @@
 {{#db}}
           "/sample"  (handlers/sample-fields request)
 {{/db}}
-          "/ping" (handlers/pong request)))
+          "/ping" (handlers/pong request)
+          {:status 400 :body (str "bad request: " (:uri request))}))
 {{/plain}}
+
+{{#reitit}}
+(def app
+  (reitit/ring-handler
+    (reitit/router
+      [["/swagger.json"
+        {:get {:no-doc true
+               :swagger {:info {:title "com.mytaxi.data.dallas API"
+                                :description ""}}
+               :handler (swagger/create-swagger-handler)}}]
+       ["/sample" {:get {:parameters {:query {:name string?, :age int?, :date string?}}
+                         :responses {200 {:body [{:name string?, :age string?, :datem string?}]}}
+                         :handler handlers/sample-fields}}]
+       ["/ping" {:get {:responses {200 {:body {:result "pong"}}}
+                       :handler handlers/pong}}]]
+      {:data {:coercion reitit.coercion.spec/coercion
+              :muuntaja m/instance
+              :middleware [parameters/parameters-middleware
+                           muuntaja/format-negotiate-middleware
+                           muuntaja/format-response-middleware
+                           exception/exception-middleware
+                           muuntaja/format-request-middleware
+                           coercion/coerce-response-middleware
+                           coercion/coerce-request-middleware]}})
+    (reitit/routes
+      (swagger-ui/create-swagger-ui-handler
+        {:path "/"
+         :config {:validatorUrl nil}})
+      (reitit/create-default-handler))))
+{{/reitit}}
 
 {{#swagger1st}}
 (def app

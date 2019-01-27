@@ -12,6 +12,7 @@
   (let [argset (into #{} (map keyword args))
         data {:name name
               :swagger1st (argset :+swagger1st)
+              :reitit (argset :+reitit)
               :plain (not (argset :+swagger1st))
               :hive (argset :+hive)
               :postgres (argset :+postgres)
